@@ -4,7 +4,7 @@ from discord.ext import commands
 
 #bot = commands.Bot(command_prefix='.')
 
-client = commands.Bot(command_prefix = '&')
+client = commands.Bot(command_prefix = os.getenv('BOT_PREFIX'))
 client.remove_command('help')
 
 
