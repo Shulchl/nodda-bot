@@ -3,14 +3,14 @@ from discord.ext import commands
 import discord.utils 
 from discord.utils import get
 
-class Util(commands.Cog, name='Comandos úteis'):
+class Util(commands.Cog, name='Utilidades'):
 
     def __init__(self, client):
         self.client = client
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Cog de Utilidade funcionando!       [√]')
+        print('Cog de Comandos Úteis funcionando!       [√]')
 
     @commands.command(name='ajudar', help='Comando usado para avisar desavisados digitando `&ajudar <usuário>`.')
     @commands.cooldown(1, 10, commands.BucketType.user)
