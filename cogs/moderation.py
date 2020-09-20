@@ -73,7 +73,7 @@ class Moderation(commands.Cog, name='Moderação'):
         await ctx.send(f"{user.mention} foi desmutado.")
                 
     @commands.command(name='clear', help='Limpa um determinado número de mensagens ao digitar `%clear <número>`')
-    @commands.has_any_role("Moderador", "Moderator")
+    @commands.has_any_role("Moderador", "Moderator", "Helper")
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def clear(self, ctx, amount : int):
         await ctx.channel.purge(limit=amount + 1)
