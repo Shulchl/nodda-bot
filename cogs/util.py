@@ -29,7 +29,7 @@ class Util(commands.Cog, name='Utilidades'):
         x = ctx.message.content
         regras = discord.utils.get(ctx.guild.text_channels, name="regras")
         outros = discord.utils.get(ctx.guild.text_channels, name="outros")
-        geth = discord.Embed(title='Antes de qualquer coisa, leia as {}, {}!'.format(regras, member),description='Tem algum erro no seu código ou precisa de ajuda com alguma lingua, mande a sua dúvida, a situação que gerou essa dúvida e o código no canal específino da linguagem.\n\nNão achou o canal? Mande em #{}! \n\nCom certeza alguém irá te ajudar!'.format(outros),color=discord.Color.green())
+        geth = discord.Embed(title='Antes de qualquer coisa, leia as {}, {}!'.format(regras, member),description='Tem algum erro no seu código ou precisa de ajuda com alguma lingua, mande a sua dúvida, a situação que gerou essa dúvida e o código no canal específico da linguagem.\n\nNão achou o canal? Mande em #{}! \n\nCom certeza alguém irá te ajudar!'.format(outros),color=discord.Color.green())
         await ctx.send('',embed=geth)
         
     @commands.command(name='projeto', help='Comando usado para avisar desavisados digitando `&projeto <usuário>`.')
