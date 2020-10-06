@@ -1,5 +1,4 @@
-import discord
-import os
+import discord, os, asyncio
 from discord.ext import commands
 
 client = commands.Bot(command_prefix = "&")
@@ -15,6 +14,18 @@ async def on_ready():
         print(f'Tudo perfeito!'.format(client))
     except:
         print(f'Não foi possivel adicionar uma atividade.'.format(client))
+        
+@client.event
+async def hidratar():
+    await client.wait_until_ready()
+    channel = client.get_channel(686235454458298441)
+    while not client.is_closed():
+        try:
+            await channel.send('\n**Se hidratem!**\n')
+            await asyncio.sleep(1800)
+        except:
+            print('Não consegui mandar hidratar')
+            await asyncio.sleep(1800)
 
 @client.event
 async def on_command_error(ctx, error):
@@ -44,4 +55,5 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
+client.loop.create_task(hidratar())
 client.run(os.getenv('TOKEN'))
