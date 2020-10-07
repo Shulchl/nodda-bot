@@ -26,6 +26,20 @@ async def hidratar():
         except:
             print('Não consegui mandar hidratar')
             await asyncio.sleep(1800)
+            
+@client.event
+async def count():
+    await client.wait_until_ready()
+    guild = client.get_guild(685932057657868289)
+    channel = client.get_channel(763193483312889906)
+    while not client.is_closed():
+        try:
+            total = guild.member_count
+            await channel.edit(name=f'{total}𝑀𝐸𝑀𝐵𝑅𝒪𝒮')
+            await asyncio.sleep(3)
+        except:
+            print('Não consegui pegar o total de membros')
+            await asyncio.sleep(3)
 
 @client.event
 async def on_command_error(ctx, error):
