@@ -110,7 +110,17 @@ class Moderation(commands.Cog, name='Moderação'):
                 await ctx.send(f'{user.mention} foi desbanido do servidor.')
                 return
 
+    @commands.command(name='lock', help='locka `.lock`')
+    @commands.has_any_role("Moderador", "Moderator", "Helper")
+    @commands.cooldown(1, 10, commands.BucketType.user)
+    async def lock(self, ctx):
+            await ctx.channel.set_permissions(ctx.guild.default_role, send_messages=False, read_messages=False)
 
+    @commands.command(name='unlock', help='unlocka `.unlock`')
+    @commands.has_any_role("Moderador", "Moderator", "Helper")
+    @commands.cooldown(1, 10, commands.BucketType.user)
+    async def unlock(self, ctx):
+            await ctx.channel.set_permissions(ctx.guild.default_role, send_messages=True,read_messages=True)
 
 def setup(client):
     client.add_cog(Moderation(client))
