@@ -27,7 +27,7 @@ async def hidratar():
     while not client.is_closed():
         try:
             await channel.send(f'**Se hidratem!**')
-            await asyncio.sleep(random.choice([100, 300, 350, 500, 800]) + 1800)
+            await asyncio.sleep(random.choice([1100, 1300, 1350, 1500, 1800]) + 1800)
         except:
             print(f'Não consegui mandar hidratar')
             await asyncio.sleep(1800)
