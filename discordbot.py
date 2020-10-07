@@ -1,5 +1,8 @@
-import discord, os, asyncio
+import discord, os, asyncio, random
 from discord.ext import commands
+from datetime import date, datetime, timedelta  
+
+date = date.today()
 
 client = commands.Bot(command_prefix = "&")
 
@@ -14,6 +17,8 @@ async def on_ready():
         print(f'Tudo perfeito!'.format(client))
     except:
         print(f'Não foi possivel adicionar uma atividade.'.format(client))
+
+        
         
 @client.event
 async def hidratar():
@@ -21,10 +26,10 @@ async def hidratar():
     channel = client.get_channel(686235454458298441)
     while not client.is_closed():
         try:
-            await channel.send('\n**Se hidratem!**\n')
-            await asyncio.sleep(1800)
+            await channel.send(f'**Se hidratem!**')
+            await asyncio.sleep(random.choice([100, 300, 350, 500, 800]) + 1800)
         except:
-            print('Não consegui mandar hidratar')
+            print(f'Não consegui mandar hidratar')
             await asyncio.sleep(1800)
             
 @client.event
