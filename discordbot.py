@@ -20,17 +20,17 @@ async def on_ready():
 
         
         
-@client.event
-async def hidratar():
-    await client.wait_until_ready()
-    channel = client.get_channel(686235454458298441)
-    while not client.is_closed():
-        try:
-            await channel.send(f'**Se hidratem!**')
-            await asyncio.sleep(random.choice([1100, 1300, 1350, 1500, 1800]) + 1800)
-        except:
-            print(f'Não consegui mandar hidratar')
-            await asyncio.sleep(1800)
+#@client.event
+#async def hidratar():
+#    await client.wait_until_ready()
+#    channel = client.get_channel(686235454458298441)
+#    while not client.is_closed():
+#        try:
+#            await channel.send(f'**Se hidratem!**')
+#            await asyncio.sleep(random.choice([1100, 1300, 1350, 1500, 1800]) + 1800)
+#        except:
+#            print(f'Não consegui mandar hidratar')
+#            await asyncio.sleep(1800)
             
 @client.event
 async def count():
@@ -40,7 +40,7 @@ async def count():
     while not client.is_closed():
         try:
             total = guild.member_count
-            await channel.edit(name=f'{total}𝑀𝐸𝑀𝐵𝑅𝒪𝒮')
+            await channel.edit(name=f'{total}𝐦𝐞𝐦𝐛𝐫𝐨𝐬')
             await asyncio.sleep(3)
         except:
             print('Não consegui pegar o total de membros')
