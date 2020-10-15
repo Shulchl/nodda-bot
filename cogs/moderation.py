@@ -63,7 +63,7 @@ class Moderation(commands.Cog, name='Moderação'):
     async def mute(self, ctx, user: Sinner, reason=None):
         #"""Gives them inferno."""
         await mute(ctx, user, reason or "Desrespeito às regras.") # uses the mute function
-        channel = client.get_channel(753661828361355384)
+        channel = discord.utils.get(ctx.guild.text_channels, name="inferno")
         await channel.send(f'Olá, {member}! Seja bem vindo ao {inferno}.\n Você foi exilado para cá até que seja desmutado. *Aprecie o silêncio*.')
 
     @commands.command(name='unmute', help='Desmuta um usuário ao digitar `%unmute <usuário>`')
