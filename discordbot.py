@@ -75,5 +75,5 @@ for filename in os.listdir('./cogs'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
 client.loop.create_task(count())
-client.loop.create_task(hidratar())
+#client.loop.create_task(hidratar())
 client.run(os.getenv('TOKEN'))
