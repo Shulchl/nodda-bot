@@ -66,9 +66,8 @@ class Moderation(commands.Cog, name='Moderação'):
         channel = discord.utils.get(ctx.guild.text_channels, name="inferno")
         embed = discord.Embed(title=f"Olá, seja bem vindo ao {channel}.\n Você foi exilado para cá até que seja desmutado.",
                             description="Aprecie o silêncio", color=0)
-        msg = await channel.send(embed=embed)
         await channel.send({user.mention})
-        await channel.send(msg)
+        await channel.send(msg(embed=embed))
         
 
     @commands.command(name='unmute', help='Desmuta um usuário ao digitar `%unmute <usuário>`')
