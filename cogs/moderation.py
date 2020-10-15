@@ -64,7 +64,7 @@ class Moderation(commands.Cog, name='Moderação'):
         #"""Gives them inferno."""
         await mute(ctx, user, reason or "Desrespeito às regras.") # uses the mute function
         channel = client.get_channel(753661828361355384)
-        await ctx.channel.send('Olá, {member}! Seja bem vindo ao {inferno}.\n Você foi exilado para cá até que seja desmutado. *Aprecie o silêncio*.')
+        await channel.send(f'Olá, {member}! Seja bem vindo ao {inferno}.\n Você foi exilado para cá até que seja desmutado. *Aprecie o silêncio*.')
 
     @commands.command(name='unmute', help='Desmuta um usuário ao digitar `%unmute <usuário>`')
     async def unmute(self, ctx, user: Redeemed):
@@ -76,7 +76,7 @@ class Moderation(commands.Cog, name='Moderação'):
     @commands.has_any_role("Moderador", "Moderator", "Helper")
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def clear(self, ctx, amount : int):
-        await ctx.channel.purge(limit=amount + 1)
+        await channel.purge(limit=amount + 1)
     @clear.error
     async def clear_error(self, ctx, error):
         if isinstance(error, commands.UserInputError):
