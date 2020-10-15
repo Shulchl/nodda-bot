@@ -64,7 +64,12 @@ class Moderation(commands.Cog, name='Moderação'):
         #"""Gives them inferno."""
         await mute(ctx, user, reason or "Desrespeito às regras.") # uses the mute function
         channel = discord.utils.get(ctx.guild.text_channels, name="inferno")
-        await channel.send(f'Olá, {user.mention}! Seja bem vindo ao {channel}.\n Você foi exilado para cá até que seja desmutado. *Aprecie o silêncio*.')
+        embed = discord.Embed(title=f"Olá, seja bem vindo ao {channel}.\n Você foi exilado para cá até que seja desmutado.",
+                            description="Aprecie o silêncio", color=0)
+        msg = await channel.send(embed=embed)
+        await channel.send({user.mention})
+        await channel.send(msg)
+        
 
     @commands.command(name='unmute', help='Desmuta um usuário ao digitar `%unmute <usuário>`')
     async def unmute(self, ctx, user: Redeemed):
