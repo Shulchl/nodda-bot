@@ -24,7 +24,7 @@ class Redeemed(commands.Converter):
 # Checks if there is a muted role on the server and creates one if there isn't
 async def mute(ctx, user, reason):
     role = discord.utils.get(ctx.guild.roles, name="Mutado") # retrieves muted role returns none if there isn't 
-    inferno = discord.utils.get(ctx.guild.text_channels, name="inferno") # retrieves channel named inferno returns none if there isn't
+    channel = discord.utils.get(ctx.guild.text_channels, name="inferno") # retrieves channel named inferno returns none if there isn't
     if not role: # checks if there is muted role
         try: # creates muted role 
             muted = await ctx.guild.create_role(name="Mutado", reason="Usado para mutar")
@@ -35,20 +35,20 @@ async def mute(ctx, user, reason):
         except discord.Forbidden:
             return await ctx.send("Eu não tenho permissão para criar um cargo mutado.") # self-explainatory
         await user.add_roles(muted) # adds newly created muted role
-        await ctx.send("{} foi mandado ao {} por {}".format(user.mention, inferno, reason))
+        await ctx.send("{} foi mandado ao {} por {}".format(user.mention, channel, reason))
     else:
         await user.add_roles(role) # adds already existing muted role
-        await ctx.send("{} foi mandado ao {} por {}".format(user.mention, inferno, reason))
+        await ctx.send("{} foi mandado ao {} por {}".format(user.mention, channel, reason))
         
-    if not inferno: # checks if there is a channel named inferno
+    if not channel: # checks if there is a channel named inferno
         overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(read_message_history=True),
                         ctx.guild.me: discord.PermissionOverwrite(send_messages=False),
                         muted: discord.PermissionOverwrite(read_message_history=True)} # permissions for the channel
         try: # creates the channel and sends a message
             channel = await ctx.create_channel('inferno', overwrites=overwrites)
-            await channel.send("Seja bem vindo ao {}.. Você foi exilado para cá até que seja desmutado. Aprecie o silêncio.".format(inferno))
+            await channel.send("Seja bem vindo ao {}.. Você foi exilado para cá até que seja desmutado. Aprecie o silêncio.".format(channel))
         except discord.Forbidden:
-            return await ctx.send("Eu não tenho permissão para criar o {}".format(inferno))
+            return await channel.send("Eu não tenho permissão para criar o {}".format(channel))
 
 class Moderation(commands.Cog, name='Moderação'):
 
@@ -64,12 +64,13 @@ class Moderation(commands.Cog, name='Moderação'):
         #"""Gives them inferno."""
         await mute(ctx, user, reason or "Desrespeito às regras.") # uses the mute function
         channel = discord.utils.get(ctx.guild.text_channels, name="inferno")
-        await channel.send(f'Olá, {member}! Seja bem vindo ao {inferno}.\n Você foi exilado para cá até que seja desmutado. *Aprecie o silêncio*.')
+        await channel.send(f'Olá, {user}! Seja bem vindo ao {channel}.\n Você foi exilado para cá até que seja desmutado. *Aprecie o silêncio*.')
 
     @commands.command(name='unmute', help='Desmuta um usuário ao digitar `%unmute <usuário>`')
     async def unmute(self, ctx, user: Redeemed):
         #"""Unmutes a muted user"""
-        await user.remove_roles(discord.utils.get(ctx.guild.roles, name="Mutado")) # removes muted role
+        unmu = discord.utils.get(ctx.guild.roles, name="Mutado")
+        await user.remove_roles(unmu) # removes muted role
         await ctx.send(f"{user.mention} foi desmutado.")
                 
     @commands.command(name='clear', help='Limpa um determinado número de mensagens ao digitar `%clear <número>`')
