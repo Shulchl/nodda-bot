@@ -36,11 +36,11 @@ async def on_ready():
 async def count():
     await client.wait_until_ready()
     guild = client.get_guild(685932057657868289)
-    channel = client.get_channel(763193483312889906)
+    channel = client.get_channel(768453176440520704)
     while not client.is_closed():
         try:
             total = guild.member_count
-            await channel.edit(name=f'{total}𝐦𝐞𝐦𝐛𝐫𝐨𝐬')
+            await channel.edit(name=f'𝑀𝐸𝑀𝐵𝑅𝒪𝒮: {total}')
             await asyncio.sleep(3)
         except:
             print('Não consegui pegar o total de membros')
