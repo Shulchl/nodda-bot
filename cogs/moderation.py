@@ -82,6 +82,11 @@ class Moderation(commands.Cog, name='Moderação'):
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def clear(self, ctx, amount : int):
         await ctx.channel.purge(limit=amount + 1)
+        emb = discord.Embed(title='Limpei!',description=f'{amount} mensagens foram apagadas!',color=discord.Color.black())
+        await ctx.send('',embed=emb)
+        asyncio.sleep(1)
+        await ctx.channel.purge(limit=1)
+        
     @clear.error
     async def clear_error(self, ctx, error):
         if isinstance(error, commands.UserInputError):
