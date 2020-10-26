@@ -83,6 +83,7 @@ class Moderation(commands.Cog, name='Moderação'):
     async def clear(self, ctx, amount : int):
         await ctx.channel.purge(limit=amount + 1)
         emb = discord.Embed(title='Limpei!',description=f'{amount} mensagens foram apagadas!',color=discord.Color.black())
+        asyncio.sleep(5)
         await ctx.send('',embed=emb)
         asyncio.sleep(1)
         await ctx.channel.purge(limit=1)
