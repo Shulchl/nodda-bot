@@ -59,7 +59,7 @@ class Moderation(commands.Cog, name='Moderação'):
     async def on_ready(self):
         print('Cog de Moderação funcionando!    [√]')
 
-    @commands.command(name='mute', help='Muta um usuário ao digitar `%mute <usuário>`')
+    @commands.command(name='mute', help='Muta um usuário ao digitar `&mute <usuário>`')
     async def mute(self, ctx, user: Sinner, reason=None):
         #"""Gives them inferno."""
         await mute(ctx, user, reason or "Desrespeito às regras.") # uses the mute function
@@ -77,31 +77,27 @@ class Moderation(commands.Cog, name='Moderação'):
         await user.remove_roles(unmu) # removes muted role
         await ctx.send(f"{user.mention} foi desmutado.")
                 
-    @commands.command(name='clear', help='Limpa um determinado número de mensagens ao digitar `%clear <número>`')
+    @commands.command(name='clear', help='Limpa um determinado número de mensagens ao digitar `&clear <número>`')
     @commands.has_any_role("Moderador", "Moderator", "Helper")
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def clear(self, ctx, amount : int):
-        await channel.purge(limit=amount + 1)
-    @clear.error
-    async def clear_error(self, ctx, error):
-        if isinstance(error, commands.UserInputError):
-            await ctx.send('Você precisa colocar o número de mensagem que deseja apagar.')
+        await ctx.channel.purge(limit=amount + 1)
 
-    @commands.command(name='kick', help='Chuta um usuário para fora do servidor ao digitar `%kick <usuário>`')
+    @commands.command(name='kick', help='Chuta um usuário para fora do servidor ao digitar `&kick <usuário>`')
     @commands.has_any_role("Moderador", "Moderator")
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def kick(self, ctx, member : discord.Member, reason=None):
         await member.kick(reason=reason)
         await ctx.send(f'Kicked {member.mention} from the server.')
 
-    @commands.command(name='ban', help='Bane um usuário do servidor ao digitar `%ban <usuário>`')
+    @commands.command(name='ban', help='Bane um usuário do servidor ao digitar `&ban <usuário>`')
     @commands.has_any_role("Moderador", "Moderator")
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def ban(self, ctx, member : discord.Member, reason=None):
         await member.ban(reason=reason)
         await ctx.send(f'Banned {member.mention} from the server.')
 
-    @commands.command(name='unban', help='Revoga o banimento de um usuário do servidor ao digitar `%unban <usuário>`')
+    @commands.command(name='unban', help='Revoga o banimento de um usuário do servidor ao digitar `&unban <usuário>`')
     @commands.has_any_role("Moderador", "Moderator")
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def unban(self, ctx, member):
@@ -115,17 +111,17 @@ class Moderation(commands.Cog, name='Moderação'):
                 await ctx.send(f'{user.mention} foi desbanido do servidor.')
                 return
 
-    @commands.command(name='lock', help='locka `.lock`')
-    @commands.has_any_role("Moderador", "Moderator", "Helper")
-    @commands.cooldown(1, 10, commands.BucketType.user)
-    async def lock(self, ctx):
-            await ctx.channel.set_permissions(ctx.guild.default_role, send_messages=False, read_messages=False)
+#    @commands.command(name='lock', help='locka `.lock`')
+#    @commands.has_any_role("Moderador", "Moderator", "Helper")
+#    @commands.cooldown(1, 10, commands.BucketType.user)
+#    async def lock(self, ctx):
+#            await ctx.channel.set_permissions(ctx.guild.default_role, send_messages=False, read_messages=False)
 
-    @commands.command(name='unlock', help='unlocka `.unlock`')
-    @commands.has_any_role("Moderador", "Moderator", "Helper")
-    @commands.cooldown(1, 10, commands.BucketType.user)
-    async def unlock(self, ctx):
-            await ctx.channel.set_permissions(ctx.guild.default_role, send_messages=True,read_messages=True)
+#    @commands.command(name='unlock', help='unlocka `.unlock`')
+#    @commands.has_any_role("Moderador", "Moderator", "Helper")
+#    @commands.cooldown(1, 10, commands.BucketType.user)
+#    async def unlock(self, ctx):
+#            await ctx.channel.set_permissions(ctx.guild.default_role, send_messages=True,read_messages=True)
 
 def setup(client):
     client.add_cog(Moderation(client))
