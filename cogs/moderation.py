@@ -9,7 +9,7 @@ class Sinner(commands.Converter):
         if not permission: # checks if user has the permission
             return argument # returns user object
         else:
-            raise await ctx.send.commands.BadArgument("Você não pode punir um moderator") # tells user that target is a staff member
+            raise await ctx.send("Você não pode punir um moderator") # tells user that target is a staff member
 
 # Checks if you have a muted role
 class Redeemed(commands.Converter):
