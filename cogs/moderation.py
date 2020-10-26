@@ -82,6 +82,10 @@ class Moderation(commands.Cog, name='Moderação'):
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def clear(self, ctx, amount : int):
         await ctx.channel.purge(limit=amount + 1)
+    @clear.error
+    async def clear_error(self, ctx, error):
+        if isinstance(error, commands.UserInputError):
+            await ctx.send('Você precisa colocar o número de mensagem que deseja apagar.')
 
     @commands.command(name='kick', help='Chuta um usuário para fora do servidor ao digitar `&kick <usuário>`')
     @commands.has_any_role("Moderador", "Moderator")
