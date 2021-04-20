@@ -42,15 +42,15 @@ async def count():
         try:
             total = guild.member_count
             await channel.edit(name=f'𝑀𝐸𝑀𝐵𝑅𝒪𝒮: {total}')
-            await asyncio.sleep(3)
+            await asyncio.sleep(100)
         except:
             print('Não consegui pegar o total de membros')
-            await asyncio.sleep(3)
+            return await asyncio.sleep(100)
 
 @client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
-        await ctx.send(f'{error}')
+        await ctx.send('Olha, eu chuto que esse comando não exite...')
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
