@@ -4,7 +4,9 @@ from datetime import date, datetime, timedelta
 
 date = date.today()
 
-client = commands.Bot(command_prefix = "&")
+client = commands.Bot(command_prefix = "&", 
+                      activity = discord.Activity(type=discord.ActivityType.watching, name="[Kiniga.com] — Leia e escreva histórias!"), 
+                      status=discord.Status.online)
 
 client.remove_command('help')
 
@@ -13,7 +15,6 @@ client.remove_command('help')
 async def on_ready():
     print('To logada como {0.user}'.format(client))
     try:
-        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="the errors' log"))
         print(f'Tudo perfeito!'.format(client))
     except:
         print(f'Não foi possivel adicionar uma atividade.'.format(client))
@@ -51,28 +52,29 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         await ctx.send(f'{error}')
 
-@client.command()
-@commands.is_owner()
-async def load(ctx, extension):
-    client.load_extension(f'cogs.{extension}')
-    await ctx.send(f"I have loaded the command")
-
-@client.command()
-@commands.is_owner()
-async def reload(ctx, extension):
-    client.unload_extension(f'cogs.{extension}')
-    client.load_extension(f'cogs.{extension}')
-    await ctx.send("I have reloaded the command")
-
-@client.command()
-@commands.is_owner()
-async def unload(ctx, extension):
-    client.unload_extension(f'cogs.{extension}')
-    await ctx.send("I have unloaded the command")
-
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
+        
+@client.command()
+@commands.is_owner()
+async def load(self, ctx, extension):
+    self.load_extension(f'cogs.{extension}')
+    await ctx.send("Carreguei os comandos")
+
+@client.command()
+@commands.is_owner()
+async def reload(self, ctx, extension):
+    self.unload_extension(f'cogs.{extension}')
+    self.load_extension(f'cogs.{extension}')
+    await ctx.send("Recarreguei os comandos")
+
+@client.command()
+@commands.is_owner()
+async def unload(self, ctx, extension):
+    self.unload_extension(f'cogs.{extension}')
+    await ctx.send("Descarreguei os comandos")
+                
 
 client.loop.create_task(count())
 #client.loop.create_task(hidratar())
